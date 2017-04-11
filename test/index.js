@@ -55,6 +55,31 @@ const TEST_LIB = {
 							valueType: 'string'
 						}
 					}
+				},
+				'polyNestedObjProp': {
+					valueType: 'object',
+					typePropertyName: 'typeProp',
+					properties: {
+						'commonProp': {
+							valueType: 'string'
+						}
+					},
+					subtypes: {
+						'SUBTYPE1': {
+							properties: {
+								'subtype1Prop': {
+									valueType: 'number'
+								}
+							}
+						},
+						'SUBTYPE2': {
+							properties: {
+								'subtype2Prop': {
+									valueType: 'string'
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -86,7 +111,11 @@ describe('x2node-pointers Module', function() {
 				'/nestedObjArrayProp/0/prop1',
 				'/nestedObjMapProp',
 				'/nestedObjMapProp/MYKEY',
-				'/nestedObjMapProp/MYKEY/prop1'
+				'/nestedObjMapProp/MYKEY/prop1',
+				'/polyNestedObjProp/typeProp',
+				'/polyNestedObjProp/commonProp',
+				'/polyNestedObjProp/SUBTYPE1:subtype1Prop',
+				'/polyNestedObjProp/SUBTYPE2:subtype2Prop'
 			];
 			for (let pointer of validPointers) {
 				expect(pointers.parse(recordTypeDesc, pointer), pointer)
@@ -145,6 +174,11 @@ describe('x2node-pointers Module', function() {
 				'key2': {
 					prop1: 'value2'
 				}
+			},
+			polyNestedObjProp: {
+				type: 'SUBTYPE1',
+				commonProp: 'common value',
+				subtype1Prop: 100
 			}
 		};
 
@@ -173,7 +207,10 @@ describe('x2node-pointers Module', function() {
 				[ '/nestedObjMapProp', record1.nestedObjMapProp ],
 				[ '/nestedObjMapProp/key1', record1.nestedObjMapProp['key1'] ],
 				[ '/nestedObjMapProp/missing', undefined ],
-				[ '/nestedObjMapProp/key2/prop1', 'value2' ]
+				[ '/nestedObjMapProp/key2/prop1', 'value2' ],
+				[ '/polyNestedObjProp/typeProp', 'SUBTYPE1' ],
+				[ '/polyNestedObjProp/commonProp', 'common value' ],
+				[ '/polyNestedObjProp/SUBTYPE1:subtype1Prop', 100 ]
 			];
 			for (let pair of pointerValues) {
 				const ptr = pointers.parse(recordTypeDesc, pair[0]);

@@ -1,6 +1,6 @@
 # # X2 Framework for Node.js | JSON Pointers
 
-This is module is an implementation of _JSON Pointer_ ([RFC 6901](https://tools.ietf.org/html/rfc6901)) for use with the record objects as defined by the X2 Framework's [x2node-records](https://www.npmjs.com/package/x2node-records) module. The module constructs pointer objects, which, given a record of a certain record type, allow reading values of the record elements (such as record properties and collection property elements) as well as performing basic record modification operations including "add", "replace" and "remove".
+This module is an implementation of _JSON Pointer_ ([RFC 6901](https://tools.ietf.org/html/rfc6901)) for use with the record objects as defined by the X2 Framework's [x2node-records](https://www.npmjs.com/package/x2node-records) module. The module constructs pointer objects, which, given a record of a certain record type, allow reading values of the record elements (such as record properties and collection property elements) as well as performing basic record modification operations including "add", "replace" and "remove".
 
 ## Usage
 
@@ -68,3 +68,54 @@ The returned `RecordElementPointer` object exposes the following properties and 
 Note, that `addValue()`, `replaceValue()` and `removeValue()` methods are not allowed on a root pointer. Also, `addValue()` and `replaceValue()` methods cannot take `undefined` for the value to set and `null` is not allowed for nested object array and map elements. Beyond that, the methods make no checks for the value type whether it matches the property definition or not.
 
 The three record modification methods `addValue()`, `replaceValue()` and `removeValue()` all return the previous value as `getValue()` would return before modifying the record.
+
+## Polymorphic Object Property Pointers
+
+The module introduces one extension specific to the X2 Framework records. To construct a pointer to a polymorphic object property, the property name token must be prefixed with the subtype name followed with a colon. For example, if we have the following polymorphic record type definition:
+
+```javascript
+{
+	...
+	'Event': {
+		typePropertyName: 'eventType',
+		properties: {
+			id: {
+				valueType: 'number',
+				role: 'id'
+			},
+			happenedOn: {
+				valueType: 'datetime'
+			}
+		},
+		subtypes: {
+			'OPENED': {
+				properties: {
+					'byWho': {
+						valueType: 'string'
+					}
+				}
+			},
+			'CLOSED': {
+				properties: {
+					'reason': {
+						valueType: 'string'
+					}
+				}
+			}
+		}
+	},
+	...
+}
+```
+
+Then the following are all valid pointers:
+
+* _/happenedOn_ - The property shared by all subtypes.
+
+* _/eventType_ - The type property.
+
+* _/OPENED:byWho_ - The "OPENED" subtype property.
+
+* _/CLOSED:reason_ - The "CLOSED" subtype property.
+
+The same mechanism of prepending property name with subtype works for polymorphic nested objects as well (for example _/orders/history/events/CREATED:date_).

@@ -2,6 +2,12 @@
   "name": "x2node-pointers",
   "version": "1.0.0-snapshot",
   "description": "JSON Pointer implementation.",
+  "keywords": [
+    "json-pointer",
+    "RFC6901",
+    "x2node",
+    "nodejs"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "eslint . && mocha",
