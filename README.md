@@ -1,4 +1,4 @@
-# # X2 Framework for Node.js | JSON Pointers
+# X2 Framework for Node.js | JSON Pointers
 
 This module is an implementation of _JSON Pointer_ ([RFC 6901](https://tools.ietf.org/html/rfc6901)) for use with the record objects as defined by the X2 Framework's [x2node-records](https://www.npmjs.com/package/x2node-records) module. The module constructs pointer objects, which, given a record of a certain record type, allow reading values of the record elements (such as record properties and collection property elements) as well as performing basic record modification operations including "add", "replace" and "remove".
 
