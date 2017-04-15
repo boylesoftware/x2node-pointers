@@ -176,7 +176,7 @@ describe('x2node-pointers Module', function() {
 				}
 			},
 			polyNestedObjProp: {
-				type: 'SUBTYPE1',
+				typeProp: 'SUBTYPE1',
 				commonProp: 'common value',
 				subtype1Prop: 100
 			}
