@@ -31,7 +31,7 @@ The `parse()` function takes the following arguments:
 
 * `noDash` (optional) - `true` to disallow dash at the end of an array element pointer. Such dash pointer is allowed only in certain contexts (such as _JSON Patch_ "add" operation, for example), so this flag allows disallowing it at the pointer parse step.
 
-The returned `RecordElementPointer` object exposes the following properties and methods:
+If the pointer is invalid, the `parse()` function throws an `X2SyntaxError`. Otherwise, the returned `RecordElementPointer` object exposes the following properties and methods:
 
 * `isRoot()` - Returns `true` if the pointer is a root pointer. A root pointer corresponds to an empty string and points to the record as a whole.
 
