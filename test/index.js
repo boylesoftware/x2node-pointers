@@ -137,7 +137,7 @@ describe('x2node-pointers Module', function() {
 			];
 			for (let pointer of invalidPointers) {
 				expect(() => pointers.parse(recordTypeDesc, pointer), pointer)
-					.to.throw(common.X2UsageError);
+					.to.throw(common.X2SyntaxError);
 			}
 		});
 	});
