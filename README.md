@@ -33,7 +33,9 @@ The `parse()` function takes the following arguments:
 
 If the pointer is invalid, the `parse()` function throws an `X2SyntaxError`. Otherwise, the returned `RecordElementPointer` object exposes the following properties and methods:
 
-* `isRoot()` - Returns `true` if the pointer is a root pointer. A root pointer corresponds to an empty string and points to the record as a whole.
+* `parent` - Pointer for the parent record element, or `null` if root pointer. A root pointer corresponds to an empty string and points to the record as a whole.
+
+* `isRoot()` - Returns `true` if the pointer is a root pointer. This is equivalent to checking if `parent` property is `null`.
 
 * `isChildOf(otherPtr)` - Returns `true` if the pointer points to a child location of the specified other pointer (that is the other pointer is a "proper prefix" of this pointer). For example, will always return `true` if the other pointer is a root pointer and this one is not.
 
