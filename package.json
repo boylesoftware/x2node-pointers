@@ -1,6 +1,6 @@
 {
   "name": "x2node-pointers",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "JSON Pointer implementation.",
   "keywords": [
     "json-pointer",
